@@ -28,7 +28,7 @@ public class SalaDeBaile extends JFrame {
 
         // Crear bailarines predeterminados
         crearBailarines();
-
+        verificarParejas();
         // Configuración de la interfaz gráfica
         panel = new SalaDeBaileGUI(hombres,mujeres,parejas);
         btnIniciar = new JButton("Iniciar");
@@ -72,31 +72,39 @@ public class SalaDeBaile extends JFrame {
         mujeres.add(new Bailarin("Mujer6"));
         System.out.println("Se crean bailarines");
     }
+    private void verificarParejas() {
+        if (hombres.size() != mujeres.size()) {
+            System.err.println("Error: El número de hombres y mujeres no es igual");
+            System.exit(1);
+        }
+    }
 
     // Método para iniciar el baile
     private void iniciarBaile() {
         // Realizar el emparejamiento de forma aleatoria
         System.out.println("Inicia baile");
         parejas.clear();
-        while (!hombres.isEmpty() && !mujeres.isEmpty()) {
-            Random rand = new Random();
+        if (hombres.size() > 0 && mujeres.size() > 0) {
+            parejas.clear();
 
-            Bailarin hombre = hombres.remove(rand.nextInt(hombres.size()));
-            Bailarin mujer = mujeres.remove(rand.nextInt(mujeres.size()));
+            while (!hombres.isEmpty() && !mujeres.isEmpty()) {
+                Random rand = new Random();
 
+                Bailarin hombre = hombres.remove(rand.nextInt(hombres.size()));
+                Bailarin mujer = mujeres.remove(rand.nextInt(mujeres.size()));
 
-            parejas.add(new Pair(hombre, mujer));
-            System.out.println("Adentro del while");
+                parejas.add(new Pair(hombre, mujer));
+            }
+
+            // Iniciar el baile
+            for (Pair pareja : parejas) {
+                bailar(pareja);
+            }
         }
-
-        // Iniciar el baile
-        for (Pair pareja : parejas) {
-            bailar(pareja);
 
             System.out.println("Empezaron a bailar");
 
         }
-    }
 
     // Método para simular el baile de una pareja
     private void bailar(Pair pareja) {

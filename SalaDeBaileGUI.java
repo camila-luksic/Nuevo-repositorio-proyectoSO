@@ -72,7 +72,7 @@ public class SalaDeBaileGUI extends JPanel {
                 yPosPista += 40;
             }
 
-            yPosPista = 100;
+            yPosPista +=20;
             if (mujer.isBailando()) {
                 g.setColor(Color.PINK);
                 g.fillRect(xPosPista, yPosPista, pistaWidth, 30);
@@ -82,7 +82,7 @@ public class SalaDeBaileGUI extends JPanel {
 
 
             }
-
+            yPosPista -= 20;
 
         }
     }
